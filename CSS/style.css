@@ -1,0 +1,89 @@
+.main-header {
+    background-color: black;
+    color: whitesmoke;
+    padding: 20px;
+}
+
+.header-line {
+    background-color: red;
+    height: 5px;
+}
+
+.nav-header {
+    background-color: black;
+    padding: 10px;
+}
+
+.logo {
+    text-align: center;
+    font-weight: 900;
+}
+
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    margin: auto;
+    max-width: 1000px;
+    gap: 20px;
+    padding: 20px;
+}
+
+.card {
+    background-color: rgb(245, 245, 245);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    overflow: hidden;
+    padding: 20px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+h2 {
+    font-weight: 600;
+}
+
+.image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.text-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.price {
+    color: red;
+    font-weight: 600;
+}
+
+.game-page {
+    display: flex;
+    flex-direction:column;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.game-title {
+    text-align: center;
+}
+
+.game-image {
+    max-width: 300px;
+}
+
+footer {
+    background-color: black;
+    color: whitesmoke;
+    text-align: center;
+    padding: 10px;
+}
+
