@@ -21,13 +21,13 @@ if (!response.ok) {
 const result = await response.json();
 allGames = result.data;
 
+localStorage.setItem('allGames', JSON.stringify(result));
+
 } catch (error) {
     console.error('Failed to fetch games', error);
     container.innerHTML = '<p>Could not load games. Please try again later</p> '
 }
 };
-
-
 
 function renderGames(gamesToRender) {
     container.innerHTML = '';
@@ -46,14 +46,11 @@ function renderGames(gamesToRender) {
         image.alt = game.image.alt;
         image.classList.add('image');
 
-        const title = document.createElement('h2');
+        const title = document.createElement('h3');
         title.textContent = game.title;
 
         const content = document.createElement('div');
         content.classList.add('text-content');
-
-        const genre = document.createElement('p');
-        genre.textContent = game.genre;
 
         const price = document.createElement('p');
         price.textContent = game.price;
@@ -61,12 +58,12 @@ function renderGames(gamesToRender) {
 
         const anchor = document.createElement('a')
         anchor.href = `products.html?id=${game.id}`;
+        anchor.classList.add('card-anchor')
 
-        content.appendChild(genre);
+        content.appendChild(title);
         content.appendChild(price);
         card.appendChild(image);
         card.appendChild(title);
-        card.appendChild(genre);
         card.appendChild(price);
         card.appendChild(content);
         anchor.appendChild(card);

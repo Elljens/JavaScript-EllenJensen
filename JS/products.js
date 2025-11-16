@@ -40,78 +40,25 @@ try {
     genre.textContent = details.genre;
 
     const price = document.createElement('p');
-    price.textContent = details.price;
+    price.textContent = '$' + details.price;
     price.classList.add('price');
 
     const description = document.createElement('p')
+    description.textContent = details.description;
     description.classList.add('game-description');
-
-    const backButton = document.createElement('a');
-    backButton.classList.add('back-button');
-    backButton.href = './index.hrml';
 
     gameDiv.appendChild(title);
     gameDiv.appendChild(image);
     gameDiv.appendChild(genre);
     gameDiv.appendChild(price);
     gameDiv.appendChild(description);
-    gameDiv.appendChild(backButton);
 
     gameContainer.appendChild(gameDiv);
         
     } catch (error) {
     console.error('Failed to fetch games', error);
-    gameContainer.innerHTML = '<p>Could not load games. Please try again later</p> '
+    gameContainer.innerHTML = '<p>Could not load the game. Please try again later</p> '
     }
 };
 
 fetchGameDetail();
-
-
-/*
-try {
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get('id');
-
-    const response = await fetch(`${gameUrl}/${id}`,options);
-    const result = await response.json();
-    details = result.data;
-
-    const gameDiv = document.createElement('div');
-    gameDiv.classList.add('game-page');
-
-    const image = document.createElement('img');
-    image.src = game.image.url;
-    image.alt = game.image.alt;
-    image.classList.add('game-image');
-
-    const title = document.createElement('h2');
-    title.textContent = game.title;
-
-    const genre = document.createElement('p');
-    genre.textContent = game.genre;
-
-    const price = document.createElement('p');
-    price.textContent = game.price;
-    price.classList.add('price');
-
-    const description = document.createElement('p')
-    description.classList.add('game-description');
-
-    const backButton = document.createElement('a');
-    backButton.classList.add('back-button');
-    backButton.href = './index.hrml';
-    
-    gameDiv.appendChild(image);
-    gameDiv.appendChild(title);
-    gameDiv.appendChild(genre);
-    gameDiv.appendChild(price);
-    gameDiv.appendChild(description);
-    gameDiv.appendChild(backButton);
-
-} catch (error) {
-    console.error('Failed to fetch games', error)
-}
-};
-
-fetchGameDetail();*/

@@ -3,25 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameHub_home</title>
+    <title>GameHub_product</title>
+    <script src="https://kit.fontawesome.com/ec3d7ec6ab.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="CSS/style.css"/>
+    <link rel="stylesheet" href="CSS/cart.css"/>
+    <script type="module" src="./JS/cart.js"></script>
     <script type="module" src="./JS/products.js"></script>
 </head>
 <body>
     <header>
-        <section class="main-header">
-        <h1 class="logo">GameHUB</h1>
-        </section>
-        <section class="header-line"></section>
-        <section class="nav-header">
-        <a href="./register.html">Register</a>
-        <a href="./index.html">home</a>
-        </section>
+        <a href="index.html" class="logo">GameHub</a>
+        <div id="cart-icon">
+            <i class="fa-solid fa-basket-shopping"></i>
+            <span class="cart-count"></span>
+        </div>
     </header>
     <main>
 
-       
-        <div id="game-container" class="game-container"></div>
+        <div class="myCart">
+            <h2 class="cart-title">Your cart</h2>
+            <div class="cart-content">
+            <div class="cart-box">
+            </div>
+            </div>
+            <div class="total">
+                <div class="total-title">Total</div>
+                <div class="total-price">$0</div>
+            </div>
+            <i class="fa-solid fa-xmark" id="cart-close"></i>
+
+            <form class="cart-form">
+                <p>Shipping information</p>
+                <label for="name">Name*</label>
+                <input type="text" id="name"/>
+                <label for="adress">Adress</label>
+                <input type="text" id="adress"/>
+                <label for="email">Email*</label>
+                <input type="email" id="email"/>
+                <p>Payment</p>
+                <label for="card-number">Card number*</label>
+                <input type="number" id="card-number"/>
+                <label for="exp-date">Exp date</label>
+                <input type="number" id="exp-date"/>
+            </form>
+            <a href="cart.html" class="complete-btn">Complete order</a>
+        </div>
+
+        <div id="game-container" class="game-container"> 
+            <button class="shop-button">Add to cart</button>
+        </div>
        
     </main>
     <footer>

@@ -1,0 +1,139 @@
+.myCart {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 360px;
+    height: 100%;
+    background-color: white;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0,5);
+    padding: 65px 20px 40px;
+    z-index: 100;
+    overflow: auto;
+    transition: 0.5s;
+}
+
+.myCart.active {
+    right: 0;
+}
+
+.cart-box {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.cart-img {
+    width: 100px;
+    height: auto;
+    border-radius: 6px;
+    margin-right: 20px;
+}
+
+.cart-detail {
+    display: grid;
+    gap: 8px;
+    margin-right: auto;
+}
+
+.cart-product-title {
+    font-size: 20px;
+}
+
+.cart-price {
+    font-weight: 500;
+}
+
+.cart-quantity {
+    display: flex;
+    width: 100px;
+    border: 1px solid #999;
+    border-radius: 6px;
+}
+
+.cart-quantity button {
+    background: transparent;
+    width: 30px;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.cart-quantity #decrement {
+    color: #999;
+}
+
+.cart-quantity .number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    border-left: 1px solid #999;
+    border-right: 1px solid #999;
+    cursor: default;
+}
+
+.cart-remove {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.checkout-btn {
+    display: block;
+    align-items: center;
+    padding: 10px;
+    background-color: orangered;
+    border-radius: 6px;
+    font-size: 16px;
+    color: white;
+    margin: 20px;
+    cursor: pointer;
+}
+
+.checkout-btn a {
+    text-decoration: none;
+}
+
+.total {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border-top: 1px solid #333;
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+.total-price {
+    margin-left: 10px;
+    font-weight: 600;
+}
+
+#cart-close {
+    position: absolute;
+    top: 20px;
+    right: 15px;
+    font-size: 35px;
+    cursor: pointer;
+}
+
+.cart-form {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    gap: 5px;
+}
+
+.cart-form p,
+.cart p {
+    font-weight: 600;
+}
+
+.complete-btn {
+    background-color: orangered;
+    color: white;
+    padding: 5px 20px;
+    border-radius: 5px;
+    margin: auto;
+    text-decoration: none;
+    position: fixed;
+    bottom: 30px;
+}
