@@ -3,29 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameHub_home</title>
+    <title>GameHub_Home</title>
     <script src="https://kit.fontawesome.com/ec3d7ec6ab.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="CSS/style.css"/>
     <link rel="stylesheet" href="CSS/cart.css"/>
-    <script src="JS/index.js" defer></script>
-    <script src="JS/cart.js" defer></script>
+    <script type="module" src="./JS/index.js"></script>
 </head>
 <body>
     <header>
-        <a href="index.html" class="logo">GameHub</a>
-        <div id="cart-icon">
-         <i class="fa-solid fa-basket-shopping"></i>
-            <span class="cart-count"></span>
-        </div>
+        <a href="index.html"><img src="gamehub_logo.png" class="logo"> </a>
+        <a href="cart.html"><i class="fa-solid fa-basket-shopping fa-2x"></i><span class="cart-count"></span></a>       
     </header>
     
     <main>
 
         <h1>Welcome to GameHub!</h1>
         <h2>Check out our selection of games:</h2>
+        <div class="search-container">
+            <form id="searchForm">
+                <input type="search" id="searchInput" placeholder="Search games"/>
+            </form>
+        </div>
 
        
-        <div id="container" class="container"></div>
+        <div id="container" class="container">
+            <p>Loading games...</p>
+        </div>
        
     </main>
     <footer>

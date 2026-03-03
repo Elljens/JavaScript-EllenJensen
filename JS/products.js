@@ -1,23 +1,36 @@
 const gameUrl = 'https://v2.api.noroff.dev/gamehub';
-const apiKey = '29583f39-a999-474e-bfd7-1e4a180cd5b5';
-const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiRWxsZW5KZW5zZW4iLCJlbWFpbCI6ImVsbGplbjA1NTEwQHN0dWQubm9yb2ZmLm5vIiwiaWF0IjoxNzYyODY3NDYwfQ.U3eQcV23lAW8Yaa1f8dAMa1Xj6pZ8RoiDKyBBqoi0k4';
-
 const gameContainer = document.querySelector('#game-container')
+
+let cartItemCount = 0;
+const updateCartCount = change => {
+    const cartItemBagde = document.querySelector('.cart-count');
+    cartItemCount += change;
+    if (cartItemCount > 0) {
+        cartItemBagde.style.visibility = 'visible';
+        cartItemBagde.textContent = cartItemCount;
+    } else {
+        cartItemBagde.style.visibility = 'hidden';
+        cartItemBagde.textContent = '';
+    }
+};
+
+function loadCartCount() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+    cartItemCount = totalItems;
+    updateCartCount(0);
+}
+
+loadCartCount();
 
 
 async function fetchGameDetail() {
-const options = {
-    headers: {
-        Authorization: `Bearer ${accessToken}`,
-        'X-Noroff-API-Key': apiKey.data
-        }
-      };
-
 try {
     const params = new URLSearchParams(window.location.search);
     const id = params.get('id');
 
-    const response = await fetch(`${gameUrl}/${id}`,options);
+    const response = await fetch(`${gameUrl}/${id}`);
     if (!response.ok) {
     throw new Error(`Error! Status: ${response.status}`);
     }
@@ -43,15 +56,24 @@ try {
     price.textContent = '$' + details.price;
     price.classList.add('price');
 
-    const description = document.createElement('p')
+    const description = document.createElement('p');
     description.textContent = details.description;
     description.classList.add('game-description');
+
+    const shopButton = document.createElement('button');
+    shopButton.textContent = 'Add to cart';
+    shopButton.classList.add('shop-button');
+
+    shopButton.addEventListener('click', () => {
+        addToCart(details);
+    })
 
     gameDiv.appendChild(title);
     gameDiv.appendChild(image);
     gameDiv.appendChild(genre);
     gameDiv.appendChild(price);
     gameDiv.appendChild(description);
+    gameDiv.appendChild(shopButton);
 
     gameContainer.appendChild(gameDiv);
         
@@ -62,3 +84,24 @@ try {
 };
 
 fetchGameDetail();
+
+function addToCart(game) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const existingGame = cart.find(item => item.id === game.id);
+    if (existingGame) {
+        existingGame.quantity += 1;
+    } else {
+        cart.push({
+            id: game.id,
+            title: game.title,
+            price: game.price,
+            image: game.image.url,
+            quantity: 1
+        });
+    }
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount(1);
+
+}
+
+

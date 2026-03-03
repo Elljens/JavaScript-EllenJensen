@@ -7,52 +7,16 @@
     <script src="https://kit.fontawesome.com/ec3d7ec6ab.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="CSS/style.css"/>
     <link rel="stylesheet" href="CSS/cart.css"/>
-    <script type="module" src="./JS/cart.js"></script>
     <script type="module" src="./JS/products.js"></script>
 </head>
 <body>
     <header>
-        <a href="index.html" class="logo">GameHub</a>
-        <div id="cart-icon">
-            <i class="fa-solid fa-basket-shopping"></i>
-            <span class="cart-count"></span>
-        </div>
+        <a href="index.html"><img src="gamehub_logo.png" class="logo"> </a>
+        <a href="cart.html"><i class="fa-solid fa-basket-shopping fa-2x"></i><span class="cart-count"></span></a> 
     </header>
     <main>
 
-        <div class="myCart">
-            <h2 class="cart-title">Your cart</h2>
-            <div class="cart-content">
-            <div class="cart-box">
-            </div>
-            </div>
-            <div class="total">
-                <div class="total-title">Total</div>
-                <div class="total-price">$0</div>
-            </div>
-            <i class="fa-solid fa-xmark" id="cart-close"></i>
-
-            <form class="cart-form">
-                <p>Shipping information</p>
-                <label for="name">Name*</label>
-                <input type="text" id="name"/>
-                <label for="adress">Adress</label>
-                <input type="text" id="adress"/>
-                <label for="email">Email*</label>
-                <input type="email" id="email"/>
-                <p>Payment</p>
-                <label for="card-number">Card number*</label>
-                <input type="number" id="card-number"/>
-                <label for="exp-date">Exp date</label>
-                <input type="number" id="exp-date"/>
-                <a href="cart.html" class="complete-btn">Complete order</a>
-            </form>
-            
-        </div>
-
-        <div id="game-container" class="game-container"> 
-            <button class="shop-button">Add to cart</button>
-        </div>
+        <div id="game-container" class="game-container"> </div>
        
     </main>
     <footer>

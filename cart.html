@@ -3,28 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameHub_thanks!</title>
+    <title>GameHub_checkout</title>
     <script src="https://kit.fontawesome.com/ec3d7ec6ab.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="CSS/style.css"/>
+    <link rel="stylesheet" href="CSS/cart.css"/>
     <script type="module" src="./JS/cart.js"></script>
-    <script type="module" src="./JS/products.js"></script>
 </head>
 <body>
     <header>
-        <a href="index.html" class="logo">GameHub</a>
-        <div id="cart-icon">
-        <i class="fa-solid fa-basket-shopping"></i>
-            <span class="cart-count"></span>
-        </div>
+        <a href="index.html"><img src="gamehub_logo.png" class="logo"> </a>
+        <a href="cart.html"><i class="fa-solid fa-basket-shopping fa-2x"></i><span class="cart-count"></span></a>  
     </header>
     <main>
-        <div class="thanks">
-        <h1>Thank you for your order!</h1>
-        <h2>You will soon recieve a confirmation on email.</h2>
-    </div>
+        <h1>Checkout</h1>
+        <div class="cart-page">
+        <section class="cart-items">
+        <div id="cart-container"></div>
+        <h2 id="total-price"></h2>
+        </section>
+       
+
+        <form class="cart-form">
+            <p>Shipping information</p>
+            <label for="name">Name*</label>
+            <input type="text" id="name"/>
+            <label for="adress">Adress</label>
+            <input type="text" id="adress"/>
+            <label for="email">Email*</label>
+            <input type="email" id="email"/>
+            <p>Payment</p>
+            <label for="card-number">Card number</label>
+            <input type="number" id="card-number"/>
+            <label for="exp-date">Exp date</label>
+            <input type="number" id="exp-date"/>
+            <button class="shop-button">Complete order</button>
+        </form>
+        </div>
+        <div class="success">
+            <i class="fa-solid fa-circle-check fa-3x"></i>
+            <p>Your order have been placed!<br>
+            Check your email for confirmation</p>
+            <a href="./index.html" class="success-btn">Home</a>
+                     
+        </div>
     </main>
 
 
 </body>
-</html>
 </html>

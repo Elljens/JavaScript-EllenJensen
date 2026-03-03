@@ -1,20 +1,35 @@
 const gameUrl = 'https://v2.api.noroff.dev/gamehub';
-const apiKey = '29583f39-a999-474e-bfd7-1e4a180cd5b5';
-const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiRWxsZW5KZW5zZW4iLCJlbWFpbCI6ImVsbGplbjA1NTEwQHN0dWQubm9yb2ZmLm5vIiwiaWF0IjoxNzYyODY3NDYwfQ.U3eQcV23lAW8Yaa1f8dAMa1Xj6pZ8RoiDKyBBqoi0k4';
-
 const container = document.querySelector('#container')
+const searchInput = document.querySelector('#searchInput')
+
+let cartItemCount = 0;
+const updateCartCount = change => {
+    const cartItemBagde = document.querySelector('.cart-count');
+    cartItemCount += change;
+    if (cartItemCount > 0) {
+        cartItemBagde.style.visibility = 'visible';
+        cartItemBagde.textContent = cartItemCount;
+    } else {
+        cartItemBagde.style.visibility = 'hidden';
+        cartItemBagde.textContent = '';
+    }
+};
+
+function loadCartCount() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+    cartItemCount = totalItems;
+    updateCartCount(0);
+}
+
+loadCartCount();
 
 let allGames = [];
 
 async function fetchGames() {
-const options = {
-    headers: {
-        Authorization: `Bearer ${accessToken}`,
-        'X-Noroff-API-Key': apiKey.data
-        }
-      };
 try {
-const response = await fetch(gameUrl, options);
+const response = await fetch(gameUrl);
 if (!response.ok) {
     throw new Error(`Error! Status: ${response.status}`);
 }
@@ -72,6 +87,31 @@ function renderGames(gamesToRender) {
     });
 }
 
+function filterGames(searchTerm) {
+    const lowerCaseSearchTerm = searchTerm.toLowerCase().trim();
+    if (!lowerCaseSearchTerm) {
+        return allGames;
+    }
+    const filtered = allGames.filter((game) => {
+        const nameMatch = game.title.toLowerCase().includes(lowerCaseSearchTerm);
+        const genreMatch = game.genre.toLowerCase().includes(lowerCaseSearchTerm);
+return nameMatch || genreMatch;
+    });
+    return filtered;
+}
+
+
+
+searchInput.addEventListener('input', (event) => {
+    const searchTerm = event.target.value;
+    const filteredGames = filterGames(searchTerm);
+
+    renderGames(filteredGames);
+});
+
+
+
+
 async function startApp() {
     await fetchGames();
 
@@ -79,4 +119,5 @@ async function startApp() {
 }
 
 startApp();
+
 

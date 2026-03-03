@@ -1,86 +1,106 @@
-const cartIcon = document.querySelector('#cart-icon');
-const cart = document.querySelector('.myCart');
-const cartClose = document.querySelector('#cart-close');
-cartIcon.addEventListener('click', () => cart.classList.add('active'));
-cartClose.addEventListener('click', () => cart.classList.remove('active'));
+const cartContainer = document.querySelector('#cart-container');
+const totalPriceElement = document.querySelector('#total-price');
 
 
-const addCartButtons = document.querySelectorAll('.shop-button')
-addCartButtons.forEach(button => {
-    button.addEventListener('click', event => {
-        const gameContainer = event.target.closest('.game-container');
-        addToCart(gameContainer)
-    });
-});
+function displayCart() {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-const cartContent = document.querySelector('.cart-content');
-const addToCart = gameContainer => {
-    const gameImgSrc = gameContainer.querySelector('img').src;
-    const gameTitle = gameContainer.querySelector('.game-title').textContent;
-    const gamePrice = gameContainer.querySelector('.price').textContent;
+    cartContainer.innerHTML = '';
 
-    const cartBox = document.createElement('div');
-    cartBox.classList.add('cart-box');
-    cartBox.innerHTML = 
-        `<img src=${gameImgSrc} class="cart-img">
-        <div class="cart-detail">
-        <p class="cart-product-title">${gameTitle}<p>
-         <span class="cart-price">${gamePrice}</span>
-        <div class="cart-quantity">
-        <button id="decrement">-</button>
-        <span class="number">1</span>
-        <button id="increment">+</button>
-        </div>
-        </div>
-        <i class="fa-solid fa-trash-can cart-remove"></i>
-    `;
-    cartContent.appendChild(cartBox);
-    localStorage.setItem('shoppingCart', JSON.stringify(gameContainer));
+    let total = 0;
 
-    cartBox.querySelector('.cart-remove').addEventListener('click', () => {
-        cartBox.remove();
+    cart.forEach((item, index) => {
+        const cartItem = document.createElement('div');
+        cartItem.classList.add('cart-item');
 
-        updateCartCount(-1)
-    });
+        const image = document.createElement('img');
+        image.src = item.image;
+        image.classList.add('cart-img');
 
-    cartBox.querySelector('.cart-quantity').addEventListener('click', event => {
-        const numberElement = cartBox.querySelector('.number');
-        const decrementButton = cartBox.querySelector('#decrement');
-        let quantity = numberElement.textContent;
+        const title = document.createElement('h3');
+        title.textContent = item.title;
+        title.classList.add('cart-title');
 
-        if (event.target.id === 'decrement' && quantity > 1) {
-            quantity--;
-            if (quantity === 1) {
-                decrementButton.style.color = '#999';
-            }
-        } else if (event.target.id === 'increment') {
-            quantity++;
-            decrementButton.style.color = '#333';
-        }
-        numberElement.textContent = quantity;
+        const price = document.createElement('p');
+        price.textContent = `$${item.price}`;
+        price.classList.add('cart-price');
 
-    });
-    updateCartCount(1);
+        const quantityWrapper = document.createElement('div');
+        quantityWrapper.classList.add('cart-quantity');
 
-};
-
-    const updateTotalPrice = () => {
-        const totalPriceElement = document.querySelector('.total-price');
-        const cartBoxes = cartContent.querySelectorAll('.cart-box');
-        let total = 0;
-        cartBoxes.forEach(cartBox => {
-            const priceElement = cartBox.querySelector('.cart-price');
-            const quantityElement = cartBox.querySelector('.number');
-            const price = priceElement.textContent.replace('$', '');
-            const quantity = quantityElement.textContent;
-            total += price * quantity;
+        const decreaseBtn = document.createElement('button');
+        decreaseBtn.textContent = '-';
+        decreaseBtn.classList.add('cart-quantity-button');
+        decreaseBtn.addEventListener('click', () => {
+            decreaseQuantity(index);
         });
-        totalPriceElement.textContent = `$${total}`;            
-    };
+        
+        const quantity = document.createElement('span');
+        quantity.textContent = item.quantity;
+        quantity.classList.add('number');
+        
+        const increaseBtn = document.createElement('button');
+        increaseBtn.textContent = '+';
+        increaseBtn.classList.add('cart-quantity-button');
+        increaseBtn.addEventListener('click', () => {
+            increaseQuantity(index);
+        });
+        
+        const removeButton = document.createElement('button');
+        removeButton.innerHTML = '<i class="fa-solid fa-trash cart-remove"></i>'
+        removeButton.classList.add('remove-button');
+        removeButton.addEventListener('click', () => {
+            removeFromCart(index);
+        });
 
-    updateTotalPrice();
+        quantityWrapper.appendChild(decreaseBtn);
+        quantityWrapper.appendChild(quantity);
+        quantityWrapper.appendChild(increaseBtn);
 
-  
+        cartItem.appendChild(title);
+        cartItem.appendChild(image);
+        cartItem.appendChild(price);
+        cartItem.appendChild(quantityWrapper);
+        cartItem.appendChild(removeButton);
+
+        cartContainer.appendChild(cartItem);
+
+        total += item.price * item.quantity;
+        
+    });
+    totalPriceElement.textContent = `Total: $${total}`;
+}
+
+function removeFromCart(index) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    cart.splice(index, 1);
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    displayCart();
+
+    updateCartCount(-1);
+}
+
+function increaseQuantity(index) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart[index].quantity += 1;
+    localStorage.setItem('cart', JSON.stringify(cart));
+    displayCart();
+}
+
+function decreaseQuantity(index) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    if (cart[index].quantity > 1) {
+        cart[index].quantity -= 1;
+    } else {
+        cart.splice(index, 1);
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount(1);
+}
 
 let cartItemCount = 0;
 const updateCartCount = change => {
@@ -95,37 +115,36 @@ const updateCartCount = change => {
     }
 };
 
+function loadCartCount() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+    cartItemCount = totalItems;
+    updateCartCount(0);
+}
+
+loadCartCount();
+displayCart();
+
+
+
 const form = document.querySelector('.cart-form');
 const nameInput = document.getElementById('name');
 const emailInput = document.getElementById('email');
-const cardNumberInput = document.getElementById('card-number');
+const successBox = document.querySelector('.success');
 
 form.addEventListener('submit', function (event) {
     event.preventDefault();
 
     const nameValue = nameInput.value.trim();
     const emailValue = emailInput.value.trim();
-    const cardNumberValue = cardNumberInput.value.trim();
 
     if (nameValue === '') {
         alert('Name field cannot be empty!');
-    } else {
-        console.log('Name:', nameValue);
-    }
+    } 
     if (emailValue === '') {
         alert('Email field cannot be empty!');
     } else {
-        console.log('Email:', emailValue);
-    }
-    if (cardNumberValue === '') {
-        alert('Card number cannot be empty!');
-    } else {
-        console.log('Card-number:', cardNumberValue);
+        successBox.classList.add('active');
     }
 });
-
-
-
-
-
-
