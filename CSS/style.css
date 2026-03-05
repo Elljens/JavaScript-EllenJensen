@@ -48,9 +48,18 @@ h1, h2 {
 }
 
 .search-container {
-    max-width: 1000px;
-    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     padding: 20px;
+    align-items: center;
+}
+
+#searchForm input {
+    height: 30px;
+    width: 200px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
 }
 
 .container {
