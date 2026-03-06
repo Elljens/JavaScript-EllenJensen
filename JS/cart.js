@@ -1,5 +1,6 @@
 const cartContainer = document.querySelector('#cart-container');
 const totalPriceElement = document.querySelector('#total-price');
+const cartItemBagde = document.querySelector('.cart-count');
 
 
 function displayCart() {
@@ -47,7 +48,7 @@ function displayCart() {
         });
         
         const removeButton = document.createElement('button');
-        removeButton.innerHTML = '<i class="fa-solid fa-trash cart-remove"></i>'
+        removeButton.innerHTML = '<i class="fa-solid fa-trash cart-remove"></i> Remove'
         removeButton.classList.add('remove-button');
         removeButton.addEventListener('click', () => {
             removeFromCart(index);
@@ -87,6 +88,7 @@ function increaseQuantity(index) {
     cart[index].quantity += 1;
     localStorage.setItem('cart', JSON.stringify(cart));
     displayCart();
+    updateCartCount(1);
 }
 
 function decreaseQuantity(index) {
@@ -99,7 +101,7 @@ function decreaseQuantity(index) {
     }
 
     localStorage.setItem('cart', JSON.stringify(cart));
-    updateCartCount(1);
+    updateCartCount(-1);
 }
 
 let cartItemCount = 0;
@@ -146,5 +148,7 @@ form.addEventListener('submit', function (event) {
         alert('Email field cannot be empty!');
     } else {
         successBox.classList.add('active');
+        cartItemBagde.style.visibility = 'hidden';
+        cartItemBagde.textContent = '';
     }
 });

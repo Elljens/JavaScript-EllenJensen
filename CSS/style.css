@@ -59,7 +59,6 @@ h1, h2 {
     height: 30px;
     width: 200px;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
 }
 
 .container {
@@ -118,10 +117,17 @@ h1, h2 {
     box-shadow: 0 2px 5px rgba(0,0,0,0.5);
 }
 
+.price {
+    font-weight: 600;
+}
+
 .shop-button {
    background-color: rgb(233, 50, 14);
    color: white;
-   padding: 8px;
+   padding: 8px 25px;
+   border-radius: 8px;
+   font-weight: 600;
+   margin-top: 20px;
 }
 
 .form-page {
