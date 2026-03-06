@@ -4,3 +4,5 @@
 
 My first JavaScript project. The website is built with API, using HTML, CSS and vanilla JavaScript.
 The website is build with a responsive design. 
+
+-Elljens
